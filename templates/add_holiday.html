@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Добавить праздник</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container" style="max-width:600px; margin:4rem auto;">
+        <div class="card">
+            <h1>Добавить праздник</h1>
+
+            <form method="POST" action="/calendar/add">
+                <input type="text" name="title" placeholder="Название праздника" required autofocus>
+                <input type="date" name="date_str" required>
+
+                <textarea name="description" placeholder="Описание / заметки" rows="3"></textarea>
+
+                <div style="margin:1.5rem 0;">
+                    <label style="display:block; font-weight:500; margin-bottom:0.5rem;">Прикрепить вишлисты:</label>
+                    {% for wl in wishlists %}
+                    <label style="display:block; margin:0.4rem 0;">
+                        <input type="checkbox" name="wishlist_ids" value="{{ wl.id }}">
+                        {{ wl.title }}
+                    </label>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" style="width:100%;">Сохранить праздник</button>
+            </form>
+
+            <p style="margin-top:2rem; text-align:center;">
+                <a href="/calendar" style="color:#3b82f6;">← Назад к календарю</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

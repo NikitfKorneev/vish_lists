@@ -4,6 +4,8 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from supabase import create_client, Client
+from datetime import datetime, date
+from dateutil.relativedelta import relativedelta
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -52,13 +54,13 @@ async def login(request: Request, email: str = Form(...), password: str = Form(.
         res = supabase.auth.sign_in_with_password({"email": email, "password": password})
         if not res.session:
             raise Exception("Не удалось войти")
-        response = RedirectResponse("/wishlist", status_code=303)
+        response = RedirectResponse("/calendar", status_code=303)  # ← изменили сюда
         response.set_cookie(
             key="access_token",
             value=res.session.access_token,
             httponly=True,
             max_age=res.session.expires_in,
-            secure=False,  # В продакшене → True + HTTPS
+            secure=False,
             samesite="lax"
         )
         return response
@@ -67,7 +69,6 @@ async def login(request: Request, email: str = Form(...), password: str = Form(.
         return templates.TemplateResponse(
             "login.html", {"request": request, "error": msg}, status_code=400
         )
-
 
 @app.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):
@@ -127,6 +128,103 @@ async def public_wishlists(request: Request):
         }
     )
 
+# ── Календарь праздников ──────────────────────────────────────────────────
+@app.get("/calendar", response_class=HTMLResponse)
+async def calendar_view(request: Request, month: int = None, year: int = None):
+    user = get_current_user(request)
+    if not user:
+        return RedirectResponse("/login")
+
+    # Определяем отображаемый месяц
+    today = datetime.now()
+    target_month = month or today.month
+    target_year = year or today.year
+
+    start_date = date(target_year, target_month, 1)
+    end_date = start_date + relativedelta(months=1) - relativedelta(days=1)
+
+    # Получаем все праздники пользователя за этот месяц
+    holidays_res = supabase.table("holidays")\
+        .select("*, holiday_wishlists!inner(wishlist_id, wishlists!inner(title))")\
+        .eq("user_id", user.id)\
+        .gte("date", start_date.isoformat())\
+        .lte("date", end_date.isoformat())\
+        .order("date")\
+        .execute()
+
+    # Группируем по дате для удобства
+    calendar_data = {}
+    for h in holidays_res.data or []:
+        d = h["date"]
+        if d not in calendar_data:
+            calendar_data[d] = []
+        calendar_data[d].append(h)
+
+    return templates.TemplateResponse("calendar.html", {
+        "request": request,
+        "current_month": target_month,
+        "current_year": target_year,
+        "calendar_data": calendar_data,
+        "prev_month": (start_date - relativedelta(months=1)).strftime("%Y-%m"),
+        "next_month": (start_date + relativedelta(months=1)).strftime("%Y-%m")
+    })
+
+
+# ── Добавить праздник ─────────────────────────────────────────────────────
+@app.get("/calendar/add", response_class=HTMLResponse)
+async def add_holiday_form(request: Request):
+    user = get_current_user(request)
+    if not user:
+        return RedirectResponse("/login")
+
+    # Получаем все вишлисты пользователя
+    wishlists_res = supabase.table("wishlists")\
+        .select("id, title")\
+        .eq("user_id", user.id)\
+        .execute()
+
+    return templates.TemplateResponse("add_holiday.html", {
+        "request": request,
+        "wishlists": wishlists_res.data or []
+    })
+
+
+@app.post("/calendar/add")
+async def add_holiday(
+    request: Request,
+    title: str = Form(...),
+    date_str: str = Form(...),  # формат YYYY-MM-DD
+    description: str = Form(None),
+    wishlist_ids: list[str] = Form(None)
+):
+    user = get_current_user(request)
+    if not user:
+        raise HTTPException(401)
+
+    try:
+        holiday_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+    except:
+        raise HTTPException(400, "Неверный формат даты (YYYY-MM-DD)")
+
+    # Создаём праздник
+    holiday_res = supabase.table("holidays").insert({
+        "user_id": user.id,
+        "title": title.strip(),
+        "date": holiday_date.isoformat(),
+        "description": description.strip() if description else None
+    }).execute()
+
+    holiday_id = holiday_res.data[0]["id"]
+
+    # Привязываем вишлисты
+    if wishlist_ids:
+        for wid in wishlist_ids:
+            supabase.table("holiday_wishlists").insert({
+                "holiday_id": holiday_id,
+                "wishlist_id": wid
+            }).execute()
+
+    return RedirectResponse("/calendar", status_code=303)
 
 # ── Мои списки ───────────────────────────────────────────────────────────
 @app.get("/wishlist", response_class=HTMLResponse)
@@ -188,11 +286,12 @@ async def view_wishlist(request: Request, wishlist_id: str):
         .execute()
 
     return templates.TemplateResponse("wishlist_detail.html", {
-        "request": request,
-        "wishlist": wishlist,
-        "items": items_res.data or [],
-        "is_owner": is_owner,
-        "current_user_email": user.email if user else None
+    "request": request,
+    "wishlist": wishlist,
+    "items": items_res.data or [],
+    "is_owner": is_owner,
+    "current_user_email": user.email if user else None,
+    "current_user_id": str(user.id) if user else None  # ← добавь эту строку
     })
 
 
@@ -346,6 +445,154 @@ async def view_suggestions(request: Request, wishlist_id: str):
         "suggestions": suggestions.data or []
     })
 
+# ── Принять предложение (добавить в свой вишлист) ─────────────────────────
+@app.post("/wishlist/{wishlist_id}/suggestions/{suggestion_id}/accept")
+async def accept_suggestion(request: Request, wishlist_id: str, suggestion_id: str):
+    user = get_current_user(request)
+    if not user:
+        raise HTTPException(401)
+
+    # Проверяем, что это владелец списка
+    wl = supabase.table("wishlists")\
+        .select("user_id")\
+        .eq("id", wishlist_id)\
+        .single()\
+        .execute()
+
+    if not wl.data or str(wl.data["user_id"]) != str(user.id):
+        raise HTTPException(403, "Это не ваш список")
+
+    # Получаем предложение
+    sug = supabase.table("wishlist_suggestions")\
+        .select("*")\
+        .eq("id", suggestion_id)\
+        .eq("wishlist_id", wishlist_id)\
+        .single()\
+        .execute()
+
+    if not sug.data:
+        raise HTTPException(404, "Предложение не найдено")
+
+    suggestion = sug.data
+
+    # Добавляем как новый предмет в вишлист
+    supabase.table("wishlist_items").insert({
+        "wishlist_id": wishlist_id,
+        "title": suggestion["title"],
+        "description": suggestion["description"],
+        "url": suggestion["url"],
+        "price": suggestion["price"],
+        "currency": suggestion["currency"],
+        "priority": 3  # средний приоритет, можно изменить
+    }).execute()
+
+    # Меняем статус предложения на accepted
+    supabase.table("wishlist_suggestions")\
+        .update({"status": "accepted"})\
+        .eq("id", suggestion_id)\
+        .execute()
+
+    return RedirectResponse(f"/wishlist/{wishlist_id}/suggestions", status_code=303)
+
+
+# ── Отклонить предложение ─────────────────────────────────────────────────
+@app.post("/wishlist/{wishlist_id}/suggestions/{suggestion_id}/reject")
+async def reject_suggestion(request: Request, wishlist_id: str, suggestion_id: str):
+    user = get_current_user(request)
+    if not user:
+        raise HTTPException(401)
+
+    # Проверяем владение списком
+    wl = supabase.table("wishlists")\
+        .select("user_id")\
+        .eq("id", wishlist_id)\
+        .single()\
+        .execute()
+
+    if not wl.data or str(wl.data["user_id"]) != str(user.id):
+        raise HTTPException(403, "Это не ваш список")
+
+    # Меняем статус на rejected
+    supabase.table("wishlist_suggestions")\
+        .update({"status": "rejected"})\
+        .eq("id", suggestion_id)\
+        .execute()
+
+    return RedirectResponse(f"/wishlist/{wishlist_id}/suggestions", status_code=303)
+
+
+# ── Забронировать подарок ─────────────────────────────────────────────────
+@app.post("/wishlist/{wishlist_id}/item/{item_id}/reserve")
+async def reserve_item(request: Request, wishlist_id: str, item_id: str):
+    user = get_current_user(request)
+    if not user:
+        raise HTTPException(401, "Нужно войти в аккаунт")
+
+    # Получаем предмет
+    item = supabase.table("wishlist_items")\
+        .select("id, wishlist_id, reserved_by")\
+        .eq("id", item_id)\
+        .eq("wishlist_id", wishlist_id)\
+        .single()\
+        .execute()
+
+    if not item.data:
+        raise HTTPException(404, "Подарок не найден")
+
+    if item.data["reserved_by"]:
+        raise HTTPException(400, "Этот подарок уже забронирован")
+
+    # Бронируем
+    supabase.table("wishlist_items")\
+        .update({
+            "reserved_by": user.id,
+            "reserved_at": "now()"
+        })\
+        .eq("id", item_id)\
+        .execute()
+
+    return RedirectResponse(f"/wishlist/{wishlist_id}", status_code=303)
+
+
+# ── Отменить бронь (только тот, кто забронировал, или владелец) ──────────
+@app.post("/wishlist/{wishlist_id}/item/{item_id}/unreserve")
+async def unreserve_item(request: Request, wishlist_id: str, item_id: str):
+    user = get_current_user(request)
+    if not user:
+        raise HTTPException(401)
+
+    item = supabase.table("wishlist_items")\
+        .select("id, wishlist_id, reserved_by")\
+        .eq("id", item_id)\
+        .eq("wishlist_id", wishlist_id)\
+        .single()\
+        .execute()
+
+    if not item.data:
+        raise HTTPException(404)
+
+    # Проверяем права: только забронировавший или владелец списка
+    wl = supabase.table("wishlists")\
+        .select("user_id")\
+        .eq("id", wishlist_id)\
+        .single()\
+        .execute()
+
+    is_owner = str(wl.data["user_id"]) == str(user.id)
+    is_reserver = str(item.data["reserved_by"]) == str(user.id)
+
+    if not (is_owner or is_reserver):
+        raise HTTPException(403, "Нет прав на отмену брони")
+
+    supabase.table("wishlist_items")\
+        .update({
+            "reserved_by": None,
+            "reserved_at": None
+        })\
+        .eq("id", item_id)\
+        .execute()
+
+    return RedirectResponse(f"/wishlist/{wishlist_id}", status_code=303)
 
 if __name__ == "__main__":
     import uvicorn
