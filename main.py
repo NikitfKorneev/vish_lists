@@ -39,7 +39,7 @@ async def root(request: Request):
     user = get_current_user(request)
     if not user:
         return RedirectResponse("/login")
-    return RedirectResponse("/calendar")
+    return RedirectResponse("/wishlist")
 
 
 # ── Аутентификация ───────────────────────────────────────────────────────
@@ -54,7 +54,7 @@ async def login(request: Request, email: str = Form(...), password: str = Form(.
         res = supabase.auth.sign_in_with_password({"email": email, "password": password})
         if not res.session:
             raise Exception("Не удалось войти")
-        response = RedirectResponse("/calendar", status_code=303)
+        response = RedirectResponse("/wishlist", status_code=303)
         response.set_cookie(
             key="access_token",
             value=res.session.access_token,
@@ -156,6 +156,21 @@ async def calendar_view(request: Request, month: int = None, year: int = None):
 
     # Шаг 2: Для каждого праздника отдельно получаем связанные вишлисты
     calendar_data = {}
+    months_ru = {
+    1: 'Январь',
+    2: 'Февраль',
+    3: 'Март',
+    4: 'Апрель',
+    5: 'Май',
+    6: 'Июнь',
+    7: 'Июль',
+    8: 'Август',
+    9: 'Сентябрь',
+    10: 'Октябрь',
+    11: 'Ноябрь',
+    12: 'Декабрь'
+    }
+    month_name = months_ru[target_month]
     for h in holidays_res.data or []:
         d = h["date"]
         if d not in calendar_data:
@@ -171,7 +186,7 @@ async def calendar_view(request: Request, month: int = None, year: int = None):
 
     return templates.TemplateResponse("calendar.html", {
         "request": request,
-        "current_month": target_month,
+        "current_month": month_name,
         "current_year": target_year,
         "calendar_data": calendar_data,
         "prev_month": (start_date - relativedelta(months=1)).strftime("%Y-%m"),
