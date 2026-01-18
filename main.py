@@ -737,8 +737,6 @@ async def update_holiday_wishlists(request: Request, holiday_id: str, wishlist_i
 
     return RedirectResponse("/calendar", status_code=303)
 
-
-
 # ── Бронирование подарка ──────────────────────────────────────────────────
 @app.post("/wishlist/{wishlist_id}/item/{item_id}/reserve")
 async def reserve_item(request: Request, wishlist_id: str, item_id: str):
