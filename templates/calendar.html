@@ -34,7 +34,7 @@
         <div style="text-align:center; margin:2rem 0;">
             <a href="/calendar/add" 
                style="padding:0.8rem 1.5rem; background:#3b82f6; color:white; border-radius:8px; text-decoration:none; font-weight:500;">
-                + Добавить праздник
+                + Настроить / добавить праздник
             </a>
         </div>
 
@@ -46,38 +46,35 @@
                 <h3 style="margin-top:0; color:#1e40af;">{{ date }}</h3>
                 
                 {% for event in events %}
-                <div class="holiday-item">
-                    <!-- Клик по названию праздника → редактирование вишлистов -->
-                    <a href="/calendar/holiday/{{ event.id }}/edit-wishlists" 
-                       style="text-decoration:none; color:inherit; display:block;">
+                <a href="/calendar/holiday/{{ event.id }}/edit-wishlists" 
+                   style="text-decoration:none; color:inherit; display:block; margin:1rem 0;">
+                    <div style="padding:1rem; background:#f8fafc; border-radius:6px; transition:background 0.2s;">
                         <strong>{{ event.title }}</strong>
                         
                         {% if event.description %}
                         <p style="color:#4b5563; margin:0.5rem 0;">{{ event.description }}</p>
                         {% endif %}
-                    </a>
-
-                    <!-- Список вишлистов — клик по названию → в вишлист -->
-                    {% if event.holiday_wishlists %}
-                    <div style="margin-top:0.8rem;">
-                        <strong>Прикреплённые вишлисты:</strong>
-                        <ul style="margin:0.5rem 0; padding-left:1.2rem; list-style:none;">
-                            {% for hw in event.holiday_wishlists %}
-                            <li>
-                                <a href="/wishlist/{{ hw.wishlists.id }}" 
-                                   style="color:#3b82f6; text-decoration:none; font-weight:500;">
-                                    {{ hw.wishlists.title }}
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
+                        
+                        {% if event.holiday_wishlists %}
+                        <div style="margin-top:0.8rem;">
+                            <strong>Прикреплённые вишлисты:</strong>
+                            <ul style="margin:0.5rem 0; padding-left:1.2rem;">
+                                {% for hw in event.holiday_wishlists %}
+                                <li>
+                                    <a href="/wishlist/{{ hw.wishlists.id }}" style="color:#3b82f6;">
+                                        {{ hw.wishlists.title }}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% else %}
+                        <p style="color:#9ca3af; margin-top:0.8rem; font-style:italic;">
+                            Без вишлистов — кликните, чтобы добавить
+                        </p>
+                        {% endif %}
                     </div>
-                    {% else %}
-                    <p style="color:#9ca3af; margin-top:0.8rem; font-style:italic;">
-                        Без вишлистов — кликните по названию праздника, чтобы добавить
-                    </p>
-                    {% endif %}
-                </div>
+                </a>
                 {% endfor %}
             </div>
             {% endfor %}
