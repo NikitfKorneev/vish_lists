@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Редактировать вишлисты для {{ holiday.title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container" style="max-width: 700px; margin: 4rem auto;">
+        <div class="card">
+            <h1>Редактировать вишлисты</h1>
+            <h2>{{ holiday.title }} ({{ holiday.date }})</h2>
+
+            <form method="POST" action="/calendar/holiday/{{ holiday.id }}/edit-wishlists">
+                <div style="margin-bottom:2rem;">
+                    <p style="font-weight:500; margin-bottom:1rem;">Выберите вишлисты, которые хотите прикрепить:</p>
+                    
+                    {% for wl in wishlists %}
+                    <label style="display:block; margin:0.6rem 0;">
+                        <input type="checkbox" name="wishlist_ids" value="{{ wl.id }}"
+                               {% if wl.id in current_ids %}checked{% endif %}>
+                        {{ wl.title }}
+                    </label>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" style="width:100%; padding:1rem; background:#1e40af; color:white; border:none; border-radius:12px; font-weight:600;">
+                    Сохранить изменения
+                </button>
+            </form>
+
+            <p style="margin-top:2rem; text-align:center;">
+                <a href="/calendar" style="color:#3b82f6; text-decoration:none;">← Назад к календарю</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
