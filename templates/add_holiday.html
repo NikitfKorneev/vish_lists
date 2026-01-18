@@ -35,9 +35,9 @@
                 <div style="margin-bottom: 2rem;">
                     <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Прикрепить вишлисты:</label>
                     {% for wl in wishlists %}
-                    <label style="display: block; margin: 0.4rem 0;">
-                        <input type="checkbox" name="wishlist_ids" value="{{ wl.id }}">
-                        {{ wl.title }}
+                    <label style="display:flex; align-items:center; margin:0.4rem 0; position:relative;">
+                        <span style="flex:1; margin-right:28px;">{{ wl.title }}</span>
+                        <input class="wl-checkbox" type="checkbox" name="wishlist_ids" value="{{ wl.id }}">
                     </label>
                     {% endfor %}
                 </div>
