@@ -3,112 +3,84 @@
 {% block title %}Календарь праздников{% endblock %}
 
 {% block content %}
-<div class="container header-content" style="margin-bottom:2rem;">
-    <h1>Календарь праздников</h1>
-    <div>
-        <a href="/wishlist" style="color:#3b82f6; margin-right:1rem;">Мои списки</a>
-        <a href="/logout" class="logout">Выйти</a>
+    <header>
+        <div class="container header-content">
+            <h1><a href="/wishlist" style="text-decoration:none; color:inherit;">Wishlist</a></h1>
+            <div>
+                <a href="/public" style="color:#3b82f6; margin-right:1rem;">Публичные списки</a>
+                <a href="/logout" class="logout">Выйти</a>
+            </div>
+        </div>
+    </header>
+<main class="container" style="padding-top:2rem;">
+    <!-- Навигация по месяцам -->
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+        <a href="/calendar?month={{ prev_month.split('-')[1] }}&year={{ prev_month.split('-')[0] }}" 
+           style="font-size:1.5rem; text-decoration:none; margin-right:1rem;">←</a>
+        
+        <h2 style="display:inline; margin:0;">{{ current_month }} {{ current_year }}</h2>
+        
+        <a href="/calendar?month={{ next_month.split('-')[1] }}&year={{ next_month.split('-')[0] }}" 
+           style="font-size:1.5rem; text-decoration:none; margin-left:1rem;">→</a>
     </div>
-</div>
 
-    <main class="container" style="padding-top:2rem;">
-        <!-- Навигация по месяцам -->
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
-            <a href="/calendar?month={{ prev_month.split('-')[1] }}&year={{ prev_month.split('-')[0] }}" 
-               style="font-size:3rem; text-decoration:none; margin-right:1rem;">←</a>
+    <!-- Кнопка добавить праздник -->
+    <div style="text-align:center; margin:2rem 0;">
+        <a href="/calendar/add" 
+           style="padding:0.8rem 1.5rem; background:#3b82f6; color:white; border-radius:8px; text-decoration:none; font-weight:500;">
+            + Добавить праздник
+        </a>
+    </div>
+
+    <!-- Список праздников -->
+    {% if calendar_data %}
+    <div class="grid">
+        {% for date, events in calendar_data.items() %}
+        <div class="card">
+            <h3 style="margin-top:0; color:#1e40af;">{{ date }}</h3>
             
-            <h2 style="display:inline-block; margin:0; width:250px; height:40px; line-height:40px; overflow:hidden; white-space:nowrap; text-align:center;">{{ current_month }} {{ current_year }}</h2>
-            
-            <a href="/calendar?month={{ next_month.split('-')[1] }}&year={{ next_month.split('-')[0] }}" 
-               style="font-size:3rem; text-decoration:none; margin-left:1rem;">→</a>
-        </div>
-
-        <!-- Кнопка добавить праздник -->
-        <div style="text-align:center; margin:2rem 0;">
-            <a href="/calendar/add" 
-               style="padding:0.8rem 1.5rem; background:#3b82f6; color:white; border-radius:8px; text-decoration:none; font-weight:500;">
-                + Добавить праздник
-            </a>
-        </div>
-
-        <!-- Список праздников -->
-        {% if calendar_data %}
-        <div class="grid">
-            {% for date, events in calendar_data.items() %}
-            <div class="card">
-                <h3 style="margin-top:0; color:#1e40af;">{{ date }}</h3>
-                
-                {% for event in events %}
-                <div class="holiday-item">
-                    <!-- Клик по названию праздника → редактирование вишлистов -->
-                    <a href="/calendar/holiday/{{ event.id }}/edit-wishlists" 
-                       style="text-decoration:none; color:inherit; display:block;">
-                        <strong>{{ event.title }}</strong>
-                        
-                        {% if event.description %}
-                        <p style="color:#4b5563; margin:0.5rem 0;">{{ event.description }}</p>
-                        {% endif %}
-                    </a>
-
-                    <!-- Список вишлистов — клик по названию → в вишлист -->
-                    {% if event.holiday_wishlists %}
-                    <div style="margin-top:0.8rem;">
-                        <strong>Прикреплённые вишлисты:</strong>
-                        <ul style="margin:0.5rem 0; padding-left:1.2rem; list-style:none;">
-                            {% for hw in event.holiday_wishlists %}
-                            <li>
-                                <a href="/wishlist/{{ hw.wishlists.id }}" 
-                                   style="color:#3b82f6; text-decoration:none; font-weight:500;">
-                                    {{ hw.wishlists.title }}
-                                </a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% else %}
-                    <p style="color:#9ca3af; margin-top:0.8rem; font-style:italic;">
-                        Без вишлистов — кликните по названию праздника, чтобы добавить
-                    </p>
+            {% for event in events %}
+            <div class="holiday-item">
+                <!-- Клик по названию праздника → редактирование вишлистов -->
+                <a href="/calendar/holiday/{{ event.id }}/edit-wishlists" 
+                   style="text-decoration:none; color:inherit; display:block;">
+                    <strong>{{ event.title }}</strong>
+                    
+                    {% if event.description %}
+                    <p style="color:#4b5563; margin:0.5rem 0;">{{ event.description }}</p>
                     {% endif %}
+                </a>
+
+                <!-- Список вишлистов — клик по названию → в вишлист -->
+                {% if event.holiday_wishlists %}
+                <div style="margin-top:0.8rem;">
+                    <strong>Прикреплённые вишлисты:</strong>
+                    <ul style="margin:0.5rem 0; padding-left:1.2rem; list-style:none;">
+                        {% for hw in event.holiday_wishlists %}
+                        <li>
+                            <a href="/wishlist/{{ hw.wishlists.id }}" 
+                               style="color:#3b82f6; text-decoration:none; font-weight:500;">
+                                {{ hw.wishlists.title }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                {% endfor %}
+                {% else %}
+                <p style="color:#9ca3af; margin-top:0.8rem; font-style:italic;">
+                    Без вишлистов — кликните по названию праздника, чтобы добавить
+                </p>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
-        {% else %}
-        <p style="text-align:center; color:#9ca3af; padding:4rem;">
-            Пока нет праздников на этот месяц<br>
-            Добавьте первый выше ↑
-        </p>
-        {% endif %}
-    </main>
-
-    <div id="eventModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <div id="modalBody"></div>
-        </div>
+        {% endfor %}
     </div>
-
-    <script>
-        function openModal(element) {
-            const modal = document.getElementById('eventModal');
-            const modalBody = document.getElementById('modalBody');
-            modalBody.innerHTML = element.innerHTML;
-            modal.style.display = 'block';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('eventModal');
-            modal.style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('eventModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        }
-    </script>
-</body>
-</html>
+    {% else %}
+    <p style="text-align:center; color:#9ca3af; padding:4rem;">
+        Пока нет праздников на этот месяц<br>
+        Добавьте первый выше ↑
+    </p>
+    {% endif %}
+</main>
+{% endblock %}

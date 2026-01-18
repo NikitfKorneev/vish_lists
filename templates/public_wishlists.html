@@ -3,12 +3,19 @@
 {% block title %}Публичные Wishlists{% endblock %}
 
 {% block content %}
+    <header>
+        <div class="container header-content">
+            <h1><a href="/wishlist" style="text-decoration:none; color:inherit;">Wishlist</a></h1>
+            <div>
+                <a href="/calendar" style="color:#3b82f6; margin-right:1rem;">Календарь</a>
+                <a href="/wishlist" style="color:#3b82f6; text-decoration:none; margin-right:1.5rem;">Мои списки</a>
+                <a href="/logout" class="logout">Выйти</a>
+            </div>
+        </div>
+    </header>
+
 <div class="container header-content" style="margin-bottom:2rem;">
     <h1>Публичные списки желаний</h1>
-    <div>
-        <a href="/wishlist" style="color:#3b82f6; text-decoration:none; margin-right:1.5rem;">Мои списки</a>
-        <a href="/logout" class="logout">Выйти</a>
-    </div>
 </div>
 
 <main class="container" style="padding-top:1rem;">

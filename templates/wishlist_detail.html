@@ -3,6 +3,17 @@
 {% block title %}{{ wishlist.title }}{% endblock %}
 
 {% block content %}
+
+    <header>
+        <div class="container header-content">
+            <h1><a href="/wishlist" style="text-decoration:none; color:inherit;">Wishlist</a></h1>
+            <div>
+                <a href="/public" style="color:#3b82f6; margin-right:1rem;">Публичные списки</a>
+                <a href="/calendar" style="color:#3b82f6; margin-right:1rem;">Календарь</a>
+                <a href="/logout" class="logout">Выйти</a>
+            </div>
+        </div>
+    </header>
 <!-- Заголовок + шаринг -->
 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
     <h2 style="margin:0;">{{ wishlist.title }}</h2>
@@ -130,3 +141,4 @@
     </main>
 </body>
 </html>
+{% endblock %}
