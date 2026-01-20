@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Вход — Wishlist</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <div class="body_login">
-        <div class="login-container">
-            <h1>Вход</h1> <!-- Заголовок -->
+{% extends "base.html" %}
 
-            {% if error %}
-            <div class="error">{{ error }}</div>
-            {% endif %}
+{% block title %}Вход — Wishlist{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 400px; margin: 6rem auto;">
+    <div class="auth-container" style="padding:2rem; border:1px solid #e5e7eb; border-radius:8px; background:#ffffff;">
+        <h1 style="text-align:center; margin-bottom:1.5rem;">Вход</h1>
+
+        {% if error %}
+        <div class="error" style="color:red; text-align:center; margin-bottom:1rem;">{{ error }}</div>
+        {% endif %}
 
             <form method="POST" action="/login">
                 <div class="form-group_email">
@@ -26,13 +22,14 @@
                     <input type="password" id="password" name="password" required>
                 </div>
 
-                <button type="submit">Войти</button>
-            </form>
+            <button type="submit" style="width:100%; padding:0.7rem; background:#3b82f6; color:white; border:none; border-radius:6px; font-size:1rem; cursor:pointer;">
+                Войти
+            </button>
+        </form>
 
-            <div class="link">
-                Нет аккаунта? <a href="/register">Зарегистрироваться</a>
-            </div>
+        <div class="link" style="text-align:center; margin-top:1rem; color:#6b7280;">
+            Нет аккаунта? <a href="/register" style="color:#3b82f6; text-decoration:none;">Зарегистрироваться</a>
         </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

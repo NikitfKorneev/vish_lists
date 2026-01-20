@@ -7,19 +7,32 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <header>
-        <div class="container header-content">
-            <h1><a href="/wishlist" style="text-decoration:none; color:inherit;">Wishlist</a></h1>
-            <div>
-                <a href="/public" style="color:#3b82f6; margin-right:1rem;">Публичные списки</a>
-                <a href="/calendar" style="color:#3b82f6; margin-right:1rem;">Календарь</a>
-                <a href="/logout" class="logout">Выйти</a>
-            </div>
-        </div>
-    </header>
+
+    <div class="corner-plant" id="cornerPlant"></div>
+
+
 
     <main class="container" style="padding-top:2rem;">
         {% block content %}{% endblock %}
     </main>
+
+    <!-- 🌿 Скрипт выбора растения -->
+    <script>
+      const plants = [
+        "/static/images/plant1.png",
+        "/static/images/plant2.png",
+        "/static/images/plant3.png",
+        "/static/images/plant4.png",
+        "/static/images/plant5.png",
+        "/static/images/plant6.png",
+        "/static/images/plant7.png"
+      ];
+
+      const chosen = plants[Math.floor(Math.random() * plants.length)];
+
+      const plantDiv = document.getElementById("cornerPlant");
+      plantDiv.style.backgroundImage = `url("${chosen}")`;
+    </script>
+
 </body>
 </html>
