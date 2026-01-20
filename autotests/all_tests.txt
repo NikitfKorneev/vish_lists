@@ -1,0 +1,502 @@
+2026-01-20 17:23:29 — пустые поля — Вход не выполнен
+2026-01-20 17:23:31 — неверный email — Вход не выполнен
+2026-01-20 17:23:34 — неверный пароль — Вход не выполнен
+2026-01-20 17:23:36 — корректные данные — Вход выполнен
+2026-01-20 17:25:00 — пустые поля — Вход не выполнен
+2026-01-20 17:25:02 — неверный email — Вход не выполнен
+2026-01-20 17:25:04 — неверный пароль — Вход не выполнен
+2026-01-20 17:25:07 — корректные данные — Вход выполнен
+2026-01-20 17:25:13 — вишлист создан
+2026-01-20 17:26:24 — пустые поля — Вход не выполнен
+2026-01-20 17:26:26 — неверный email — Вход не выполнен
+2026-01-20 17:26:28 — неверный пароль — Вход не выполнен
+2026-01-20 17:26:31 — корректные данные — Вход выполнен
+2026-01-20 17:26:31 — вишлист создан
+2026-01-20 17:26:50 — Сообщение отправлено в Telegram ✅
+2026-01-20 17:27:04 — вишлист не удален
+2026-01-20 17:27:09 — вишлист не удален
+2026-01-20 17:31:58 — пустые поля — Вход не выполнен
+2026-01-20 17:32:01 — неверный email — Вход не выполнен
+2026-01-20 17:32:03 — неверный пароль — Вход не выполнен
+2026-01-20 17:32:05 — корректные данные — Вход выполнен
+2026-01-20 17:32:06 — вишлист создан
+2026-01-20 17:32:26 — Сообщение отправлено в Telegram ✅
+2026-01-20 17:32:39 — вишлист удален
+2026-01-20 17:32:44 — вишлист удален
+2026-01-20 17:33:08 — пустые поля — Вход не выполнен
+2026-01-20 17:33:11 — неверный email — Вход не выполнен
+2026-01-20 17:33:13 — неверный пароль — Вход не выполнен
+2026-01-20 17:33:15 — корректные данные — Вход выполнен
+2026-01-20 17:33:16 — вишлист создан
+2026-01-20 17:33:36 — Сообщение отправлено в Telegram ✅
+2026-01-20 17:33:49 — вишлист удален
+2026-01-20 17:33:54 — вишлист удален
+2026-01-20 19:50:52 — пустые поля — Вход не выполнен
+2026-01-20 19:50:53 — неверный email — Вход не выполнен
+2026-01-20 19:50:53 — неверный пароль — Тест упал с ошибкой: Message: unknown error: unhandled inspector error: {"code":-32000,"message":"Node with given id does not belong to the document"}
+  (Session info: chrome=144.0.7559.60)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc0aa92
+	0xc09566
+	0xc09be6
+	0xc2b1d3
+	0xc2d3ec
+	0xc2c1bc
+	0xc22769
+	0xc20b82
+	0xc240ef
+	0xc24188
+	0xc68728
+	0xc5d444
+	0xc87f0c
+	0xc5ac74
+	0xc880d4
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 19:50:54 — корректные данные — Вход выполнен
+2026-01-20 19:50:55 — вишлист создан
+2026-01-20 19:51:00 — Сообщение отправлено в Telegram ✅
+2026-01-20 19:51:01 — вишлист удален
+2026-01-20 19:51:03 — вишлист удален
+2026-01-20 19:52:31 — пустые поля — Вход не выполнен
+2026-01-20 19:52:32 — неверный email — Вход не выполнен
+2026-01-20 19:52:33 — неверный пароль — Тест упал с ошибкой: Message: stale element reference: stale element not found
+  (Session info: chrome=144.0.7559.60); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#staleelementreferenceexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc2d0f2
+	0xc2c1bc
+	0xc22769
+	0xc20b82
+	0xc240ef
+	0xc24188
+	0xc672f2
+	0xc5cc46
+	0xc87f0c
+	0xc5ac74
+	0xc880d4
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 19:52:33 — корректные данные — Тест упал с ошибкой: Message: no such element: Unable to locate element: {"method":"css selector","selector":"[id="email"]"}
+  (Session info: chrome=144.0.7559.60); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc6561a
+	0xc658bb
+	0xca78e2
+	0xc87f54
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 19:53:15 — пустые поля — Вход не выполнен
+2026-01-20 19:53:15 — неверный email — Вход не выполнен
+2026-01-20 19:53:16 — неверный пароль — Вход не выполнен
+2026-01-20 19:53:16 — корректные данные — Тест упал с ошибкой: Message: stale element reference: stale element not found
+  (Session info: chrome=144.0.7559.60); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#staleelementreferenceexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc2d0f2
+	0xc2c1bc
+	0xc22769
+	0xc20b82
+	0xc240ef
+	0xc24188
+	0xc672f2
+	0xc5cc46
+	0xc87f0c
+	0xc5ac74
+	0xc880d4
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 19:55:45 — пустые поля — Вход не выполнен
+2026-01-20 19:55:48 — неверный email — Вход не выполнен
+2026-01-20 19:55:49 — неверный пароль — Вход не выполнен
+2026-01-20 19:55:50 — корректные данные — Вход выполнен
+2026-01-20 19:55:51 — вишлист создан
+2026-01-20 19:55:53 — Не удалось отправить сообщение ❌
+2026-01-20 19:55:53 — Тест упал с ошибкой: Message: no such element: Unable to locate element: {"method":"css selector","selector":".delete-btn"}
+  (Session info: chrome=144.0.7559.60); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc6561a
+	0xc658bb
+	0xca78e2
+	0xc87f54
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 19:55:56 — Тест упал с ошибкой: Message: no such element: Unable to locate element: {"method":"css selector","selector":".delete-btn"}
+  (Session info: chrome=144.0.7559.60); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc6561a
+	0xc658bb
+	0xca78e2
+	0xc87f54
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 19:57:20 — пустые поля — Вход не выполнен
+2026-01-20 19:57:22 — неверный email — Вход не выполнен
+2026-01-20 19:57:22 — неверный пароль — Тест упал с ошибкой: Message: no such element: Unable to locate element: {"method":"css selector","selector":"[id="email"]"}
+  (Session info: chrome=144.0.7559.60); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc6561a
+	0xc658bb
+	0xca78e2
+	0xc87f54
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 19:57:22 — корректные данные — Тест упал с ошибкой: Message: no such element: Unable to locate element: {"method":"css selector","selector":"[id="email"]"}
+  (Session info: chrome=144.0.7559.60); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc6561a
+	0xc658bb
+	0xca78e2
+	0xc87f54
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 19:57:47 — пустые поля — Вход не выполнен
+2026-01-20 19:57:48 — неверный email — Вход не выполнен
+2026-01-20 19:57:49 — неверный пароль — Вход не выполнен
+2026-01-20 19:57:50 — корректные данные — Вход выполнен
+2026-01-20 19:57:51 — вишлист создан
+2026-01-20 19:57:56 — Сообщение отправлено в Telegram ✅
+2026-01-20 19:57:57 — вишлист не удален
+2026-01-20 19:57:59 — вишлист не удален
+2026-01-20 19:58:20 — пустые поля — Вход не выполнен
+2026-01-20 19:58:21 — неверный email — Вход не выполнен
+2026-01-20 19:58:23 — неверный пароль — Вход не выполнен
+2026-01-20 19:58:24 — корректные данные — Вход выполнен
+2026-01-20 19:58:25 — вишлист создан
+2026-01-20 19:58:27 — Не удалось отправить сообщение ❌
+2026-01-20 19:58:27 — Тест упал с ошибкой: Message: no such element: Unable to locate element: {"method":"css selector","selector":".delete-btn"}
+  (Session info: chrome=144.0.7559.60); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc6561a
+	0xc658bb
+	0xca78e2
+	0xc87f54
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 19:58:29 — Тест упал с ошибкой: Message: no such element: Unable to locate element: {"method":"css selector","selector":".delete-btn"}
+  (Session info: chrome=144.0.7559.60); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc6561a
+	0xc658bb
+	0xca78e2
+	0xc87f54
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 19:59:28 — пустые поля — Вход не выполнен
+2026-01-20 19:59:30 — неверный email — Вход не выполнен
+2026-01-20 19:59:32 — неверный пароль — Вход не выполнен
+2026-01-20 19:59:33 — корректные данные — Вход выполнен
+2026-01-20 19:59:34 — вишлист создан
+2026-01-20 19:59:38 — Сообщение отправлено в Telegram ✅
+2026-01-20 19:59:39 — вишлист не удален
+2026-01-20 19:59:42 — вишлист не удален
+2026-01-20 20:00:44 — пустые поля — Вход не выполнен
+2026-01-20 20:00:48 — неверный email — Вход не выполнен
+2026-01-20 20:00:49 — неверный пароль — Вход не выполнен
+2026-01-20 20:00:50 — корректные данные — Вход выполнен
+2026-01-20 20:00:52 — вишлист создан
+2026-01-20 20:00:54 — Не удалось отправить сообщение ❌
+2026-01-20 20:00:55 — Тест упал с ошибкой: Message: no such element: Unable to locate element: {"method":"css selector","selector":".delete-btn"}
+  (Session info: chrome=144.0.7559.60); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc6561a
+	0xc658bb
+	0xca78e2
+	0xc87f54
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 20:00:57 — Тест упал с ошибкой: Message: no such element: Unable to locate element: {"method":"css selector","selector":".delete-btn"}
+  (Session info: chrome=144.0.7559.60); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc6561a
+	0xc658bb
+	0xca78e2
+	0xc87f54
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 20:02:24 — пустые поля — Вход не выполнен
+2026-01-20 20:02:27 — неверный email — Вход не выполнен
+2026-01-20 20:02:27 — неверный пароль — Тест упал с ошибкой: Message: no such element: Unable to locate element: {"method":"css selector","selector":"[id="email"]"}
+  (Session info: chrome=144.0.7559.60); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc6561a
+	0xc658bb
+	0xca78e2
+	0xc87f54
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 20:02:27 — корректные данные — Тест упал с ошибкой: Message: no such element: Unable to locate element: {"method":"css selector","selector":"[id="email"]"}
+  (Session info: chrome=144.0.7559.60); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0xdfccf3
+	0xdfcd34
+	0xc1b1e0
+	0xc6561a
+	0xc658bb
+	0xca78e2
+	0xc87f54
+	0xca51f3
+	0xc87ca6
+	0xc59409
+	0xc5a1c4
+	0x106a7b4
+	0x1065db7
+	0x108379d
+	0xe16ca8
+	0xe1e87d
+	0xe05708
+	0xe058d2
+	0xdef03a
+	0x766e5d49
+	0x77b5d5db
+	0x77b5d561
+
+2026-01-20 20:02:45 — пустые поля — Вход не выполнен
+2026-01-20 20:02:46 — неверный email — Вход не выполнен
+2026-01-20 20:02:47 — неверный пароль — Вход не выполнен
+2026-01-20 20:02:49 — корректные данные — Вход выполнен
+2026-01-20 20:02:50 — вишлист создан
+2026-01-20 20:02:55 — Сообщение отправлено в Telegram ✅
+2026-01-20 20:02:59 — вишлист не удален
+2026-01-20 20:03:02 — вишлист не удален
+2026-01-20 20:04:28 — пустые поля — Вход не выполнен
+2026-01-20 20:04:31 — неверный email — Вход не выполнен
+2026-01-20 20:04:35 — неверный пароль — Вход не выполнен
+2026-01-20 20:04:39 — корректные данные — Вход выполнен
+2026-01-20 20:04:41 — вишлист создан
+2026-01-20 20:04:45 — Сообщение отправлено в Telegram ✅
+2026-01-20 20:04:51 — вишлист не удален
+2026-01-20 20:04:54 — вишлист не удален
