@@ -23,13 +23,16 @@ body {
 
 .main-layout {
   display: flex;
-  gap: 2.5rem;
+  gap: 2rem;
   padding: 3rem 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
 /* Контент */
 .content {
-  flex: 1;
+  flex: 3;
   max-width: 960px;
 }
 
@@ -38,13 +41,15 @@ body {
   width: 360px;
   flex-shrink: 0;
   background: white;
-  border-radius: 20px;
-  padding: 2rem;
+  border-radius: 16px;
+  padding: 1.5rem;
   border: 1px solid #e0eaff;
-  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.05);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   height: fit-content;
   position: sticky;
-  top: 120px;
+  top: 100px;
+  flex: 1;
+  min-width: 340px;
 }
 
 /* Хедер */
@@ -170,19 +175,50 @@ button:hover {
 }
 
 /* Календарь */
+
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  gap: 10px;
+}
+
+
+
 .calendar-header h3 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: #1e293b;
+  font-size: 1.3rem;
+}
+
+.calendar-header button {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  /* padding: 0.5rem; */
+  color: #4b5563;
+  justify-content: space-around;
 }
 
 .calendar-header button:hover {
   color: #1e40af;
 }
 
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  text-align: center;
+}
+
+
 .calendar-day:hover {
-  background: #e0eaff;
-  color: #1e40af;
+  background: #eff6ff;
+  color: #1d4ed8;
 }
 
 .calendar-day {
@@ -196,14 +232,19 @@ button:hover {
 }
 
 .calendar-day.today {
-    background: #1e40af; /* синий */
-    color: white;
-    font-weight: bold;
+  background: rgba(59, 130, 246, 0.6);
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  border-radius: 25%;
+  font-size: 0.95rem;
 }
 
+
 .calendar-day.has-events {
-  background: #e0eaff;
+  background: #fef3c7;
   font-weight: 600;
+  border-radius: 25%;
+  font-size: 0.95rem;
 }
 
 .calendar-day.empty {
@@ -213,21 +254,29 @@ button:hover {
 }
 
 
+.day-name {
+  font-weight: 600;
+  color: #6b7280;
+  padding: 0.6rem 0;
+  font-size: 0.9rem;
+}
+
 .event-dots {
   position: absolute;
-  bottom: 8px;
+  bottom: 6px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 5px;
+  gap: 4px;
 }
 
 .event-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #93c5fd;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  margin-bottom: 7px;
 }
+
 
 /* Подсветка предложенных предметов */
 .suggested-item {

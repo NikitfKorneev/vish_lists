@@ -2,3 +2,23 @@
 2026-01-20 14:29:27 — неверный email — Вход не выполнен
 2026-01-20 14:29:29 — неверный пароль — Вход не выполнен
 2026-01-20 14:29:31 — корректные данные — Вход выполнен
+2026-01-20 20:23:23 — пустые поля — Вход не выполненКартинка НЕ загрузилась ❌
+2026-01-20 20:23:26 — неверный email — Вход не выполненКартинка НЕ загрузилась ❌
+2026-01-20 20:23:28 — неверный пароль — Вход не выполненКартинка НЕ загрузилась ❌
+2026-01-20 20:23:30 — корректные данные — Вход выполненКартинка НЕ загрузилась ❌
+2026-01-20 20:41:08 — пустые поля — Вход не выполнен
+2026-01-20 20:41:15 — неверный email — Вход не выполнен
+2026-01-20 20:41:23 — неверный пароль — Вход не выполнен
+2026-01-20 20:41:25 — корректные данные — Вход выполнен | Картинка НЕ загрузилась ❌
+2026-01-20 20:44:13 — пустые поля — Тест упал с ошибкой: cannot access local variable 'bg' where it is not associated with a value
+2026-01-20 20:44:20 — неверный email — Тест упал с ошибкой: cannot access local variable 'bg' where it is not associated with a value
+2026-01-20 20:44:27 — неверный пароль — Тест упал с ошибкой: cannot access local variable 'bg' where it is not associated with a value
+2026-01-20 20:44:30 — корректные данные — Вход выполнен | Картинка загрузилась ✅
+2026-01-20 20:46:19 — пустые поля — Тест упал с ошибкой: cannot access local variable 'bg' where it is not associated with a value
+2026-01-20 20:46:26 — неверный email — Тест упал с ошибкой: cannot access local variable 'bg' where it is not associated with a value
+2026-01-20 20:46:33 — неверный пароль — Тест упал с ошибкой: cannot access local variable 'bg' where it is not associated with a value
+2026-01-20 20:46:36 — корректные данные — Вход выполнен | Картинка загрузилась ✅
+2026-01-20 20:49:14 — пустые поля — Тест упал с ошибкой: cannot access local variable 'bg' where it is not associated with a value
+2026-01-20 20:49:22 — неверный email — Тест упал с ошибкой: cannot access local variable 'bg' where it is not associated with a value
+2026-01-20 20:49:29 — неверный пароль — Тест упал с ошибкой: cannot access local variable 'bg' where it is not associated with a value
+2026-01-20 20:49:31 — корректные данные — Вход выполнен | Картинка загрузилась ✅

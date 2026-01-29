@@ -30,6 +30,7 @@ try:
             else:
                 result = "Вход не выполнен"
                 print("Вход не выполнен")
+            
 
         except Exception as e:
             result = f"Тест упал с ошибкой: {e}"

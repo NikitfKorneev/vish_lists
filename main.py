@@ -1,28 +1,144 @@
 import os
+from dotenv import load_dotenv
 from fastapi import FastAPI, Request, Form, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from supabase import create_client, Client
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
-from dotenv import load_dotenv
-from fastapi.staticfiles import StaticFiles
-
-app = FastAPI(title="Wishlist App")
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+import httpx
+from supabase import create_client, Client
 
 load_dotenv()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY")
-TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-
-if not SUPABASE_URL or not SUPABASE_ANON_KEY:
-    raise ValueError("SUPABASE_URL и SUPABASE_ANON_KEY должны быть в .env")
+SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY")  # ⚠️ нужен для admin API
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+app = FastAPI()
+templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+async def send_reset_email(email: str):
+    url = f"{SUPABASE_URL}/auth/v1/recover"
+    headers = {
+        "apikey": SUPABASE_ANON_KEY,
+        "Content-Type": "application/json"
+    }
+    json_data = {
+        "email": email,
+        "redirect_to": "http://127.0.0.1:8000/reset-password"
+    }
+
+    async with httpx.AsyncClient() as client:
+        r = await client.post(url, headers=headers, json=json_data)
+        r.raise_for_status()
+        return r.json()
+
+
+# --- Функция обновления пароля через recovery token (Admin API) ---
+async def update_password(access_token: str, new_password: str):
+    url = f"{SUPABASE_URL}/auth/v1/user"
+    headers = {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/json"
+    }
+    json_data = {
+        "password": new_password
+    }
+
+    async with httpx.AsyncClient() as client:
+        r = await client.put(url, headers=headers, json=json_data)
+        r.raise_for_status()
+        return r.json()
+
+
+# --- GET форма для ввода email ---
+@app.get("/forgot_password", response_class=HTMLResponse)
+async def forgot_password_form(request: Request):
+    return templates.TemplateResponse(
+        "forgot_password.html",
+        {"request": request, "message": None, "message_color": "green"}
+    )
+
+
+# --- POST обработка запроса на сброс пароля ---
+@app.post("/forgot_password", response_class=HTMLResponse)
+async def forgot_password_submit(request: Request):
+    form = await request.form()
+    email = form.get("email")
+
+    try:
+        await send_reset_email(email)
+        message = f"Ссылка для сброса пароля отправлена на {email}"
+        color = "green"
+    except httpx.HTTPStatusError as e:
+        message = f"Ошибка HTTP: {e.response.status_code} - {e.response.text}"
+        color = "red"
+    except Exception as e:
+        message = f"Ошибка: {e}"
+        color = "red"
+
+    return templates.TemplateResponse(
+        "forgot_password.html",
+        {"request": request, "message": message, "message_color": color}
+    )
+
+
+# --- GET страница сброса пароля ---
+@app.get("/reset-password", response_class=HTMLResponse)
+async def reset_password_page(request: Request):
+    # НЕ проверяем get_current_user
+    return templates.TemplateResponse(
+        "reset_password.html",
+        {"request": request, "message": None, "message_color": "green"}
+    )
+
+
+# --- POST обработка нового пароля ---
+@app.post("/reset-password", response_class=HTMLResponse)
+async def reset_password_submit(
+    request: Request,
+    access_token: str = Form(...),
+    password: str = Form(...),
+    password_confirm: str = Form(...)
+):
+    if password != password_confirm:
+        return templates.TemplateResponse(
+            "reset_password.html",
+            {"request": request,
+             "message": "Пароли не совпадают!",
+             "message_color": "red"}
+        )
+
+    # Меняем пароль через Supabase API
+    try:
+        url = f"{SUPABASE_URL}/auth/v1/user"
+        headers = {
+            "apikey": SUPABASE_ANON_KEY,
+            "Authorization": f"Bearer {access_token}",
+            "Content-Type": "application/json"
+        }
+        json_data = {"password": password}
+
+        async with httpx.AsyncClient() as client:
+            r = await client.put(url, headers=headers, json=json_data)
+            r.raise_for_status()
+
+        # После успешного изменения редирект на /login
+        return RedirectResponse("/login?message=Пароль+успешно+сменён", status_code=302)
+
+    except httpx.HTTPStatusError as e:
+        return templates.TemplateResponse(
+            "reset_password.html",
+            {"request": request,
+             "message": f"Ошибка HTTP: {e.response.text}",
+             "message_color": "red"}
+        )
 
 
 
