@@ -13,7 +13,6 @@ app = FastAPI(title="Wishlist App")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-
 load_dotenv()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
